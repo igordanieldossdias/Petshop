@@ -161,7 +161,7 @@ $conn->close();
                     <div class="cart-item-price">R$ <?php echo number_format($produto['preco'], 2, ',', '.'); ?></div>
                     <div class="cart-item-quantity">Quantidade: <?php echo htmlspecialchars($quantidade); ?></div>
                     <div class="cart-item-price">Subtotal: R$ <?php echo number_format($subtotal, 2, ',', '.'); ?></div>
-                    <a href="?remover_id=<?php echo $produto['id_produto']; ?>" class="remove-btn">Remover</a>
+                    <button class="remove-btn" onclick="openDeleteModal(<?php echo $produto['id_produto']; ?>)">Remover</button>
                     <button class="update-btn" onclick="openModal(<?php echo $produto['id_produto']; ?>, <?php echo $quantidade; ?>)">Modificar Quantidade</button>
                 </div>
             </div>
@@ -191,23 +191,55 @@ $conn->close();
     </div>
 </div>
 
+<!-- Modal de confirmação de exclusão -->
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDeleteModal()">&times;</span>
+        <h3>Tem certeza que deseja remover este item do carrinho?</h3>
+        <button onclick="confirmDelete()">Sim, remover</button>
+        <button onclick="closeDeleteModal()">Cancelar</button>
+    </div>
+</div>
+
 <script>
-    // Função para abrir o modal
+    let productToDelete = null;
+
+    // Função para abrir o modal de modificação de quantidade
     function openModal(idProduto, quantidadeAtual) {
         document.getElementById('id_produto').value = idProduto;
         document.getElementById('quantidade').value = quantidadeAtual;
         document.getElementById('modal').style.display = "block";
     }
 
-    // Função para fechar o modal
+    // Função para fechar o modal de modificação de quantidade
     function closeModal() {
         document.getElementById('modal').style.display = "none";
+    }
+
+    // Função para abrir o modal de confirmação de exclusão
+    function openDeleteModal(idProduto) {
+        productToDelete = idProduto;
+        document.getElementById('delete-modal').style.display = "block";
+    }
+
+    // Função para fechar o modal de confirmação de exclusão
+    function closeDeleteModal() {
+        document.getElementById('delete-modal').style.display = "none";
+    }
+
+    // Função para confirmar a exclusão e redirecionar
+    function confirmDelete() {
+        if (productToDelete !== null) {
+            window.location.href = "?remover_id=" + productToDelete;
+        }
     }
 
     // Fechar o modal clicando fora dele
     window.onclick = function(event) {
         if (event.target == document.getElementById('modal')) {
             closeModal();
+        } else if (event.target == document.getElementById('delete-modal')) {
+            closeDeleteModal();
         }
     }
 </script>

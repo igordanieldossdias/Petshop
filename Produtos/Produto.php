@@ -32,6 +32,11 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
+<?php if (isset($_GET['status']) && $_GET['status'] === 'sucesso') { ?>
+    <div class="alert alert-success">Produto excluído com sucesso!</div>
+<?php } ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -42,7 +47,7 @@ $conn->close();
     <style>
         /* Seu estilo existente */
         
-        /* Estilo para o pop-up de edição */
+        /* Estilo para o pop-up de edição e exclusão */
         .edit-popup, .confirm-popup {
             display: none;
             position: fixed;
@@ -58,6 +63,15 @@ $conn->close();
 
         .edit-popup.active, .confirm-popup.active {
             display: block;
+        }
+
+        .popup-header {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .popup-buttons {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -89,30 +103,25 @@ $conn->close();
     </div>
 </div>
 
-<!-- Pop-up de edição -->
+<!-- Pop-up de edição do produto -->
 <div id="edit-popup" class="edit-popup">
-    <h3>Editar Produto</h3>
-    <form id="edit-form" method="post" action="editar_produto.php">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" value="<?php echo htmlspecialchars($produto['nome']); ?>" required><br><br>
+    <div class="popup-header">Editar Produto</div>
+    <form id="edit-product-form">
+        <label for="edit-name">Nome:</label>
+        <input type="text" id="edit-name" name="edit-name" value="<?php echo htmlspecialchars($produto['nome']); ?>"><br>
 
-        <label for="preco">Preço:</label>
-        <input type="text" name="preco" value="<?php echo htmlspecialchars($produto['preco']); ?>" required><br><br>
+        <label for="edit-price">Preço:</label>
+        <input type="text" id="edit-price" name="edit-price" value="<?php echo number_format($produto['preco'], 2, ',', '.'); ?>"><br>
 
-        <label for="descricao">Descrição:</label>
-        <textarea name="descricao" required><?php echo htmlspecialchars($produto['descricao']); ?></textarea><br><br>
+        <label for="edit-description">Descrição:</label>
+        <textarea id="edit-description" name="edit-description"><?php echo htmlspecialchars($produto['descricao']); ?></textarea><br>
 
-        <label for="url_imagem">URL da Imagem 1:</label>
-        <input type="text" name="url_imagem" value="<?php echo htmlspecialchars($produto['url_imagem']); ?>" required><br><br>
-
-        <label for="url_imagem2">URL da Imagem 2:</label>
-        <input type="text" name="url_imagem2" value="<?php echo htmlspecialchars($produto['url_imagem2']); ?>"><br><br>
-
-        <input type="hidden" name="id_produto" value="<?php echo $id_produto; ?>">
-        <button type="submit">Salvar Alterações</button>
-        <button type="button" onclick="closeEditPopup()">Cancelar</button>
+        <div class="popup-buttons">
+            <button type="button" onclick="submitEditForm()">Salvar</button>
+            <button type="button" onclick="closeEditPopup()">Cancelar</button>
+        </div>
     </form>
-</div>  
+</div>
 
 <!-- Pop-up de confirmação para excluir -->
 <div id="confirm-popup" class="confirm-popup">
@@ -122,14 +131,17 @@ $conn->close();
 </div>
 
 <script>
+    // Preço inicial do produto
     let price = <?php echo $produto['preco']; ?>;
 
+    // Função para aumentar a quantidade de itens
     function increaseQuantity() {
         let quantity = document.getElementById('quantity');
         quantity.value = parseInt(quantity.value) + 1;
         updatePrice();
     }
 
+    // Função para diminuir a quantidade de itens
     function decreaseQuantity() {
         let quantity = document.getElementById('quantity');
         if (quantity.value > 1) {
@@ -138,12 +150,14 @@ $conn->close();
         }
     }
 
+    // Função para atualizar o preço total de acordo com a quantidade
     function updatePrice() {
         let quantity = document.getElementById('quantity').value;
         let totalPrice = price * quantity;
         document.getElementById('product-price').textContent = 'R$ ' + totalPrice.toFixed(2).replace('.', ',');
     }
 
+    // Função para adicionar o produto ao carrinho
     function addToCart() {
         let quantity = document.getElementById('quantity').value;
 
@@ -158,24 +172,45 @@ $conn->close();
         xhr.send('id_produto=<?php echo $id_produto; ?>&quantidade=' + quantity);
     }
 
-    // Funções para o pop-up de edição
+    // Função para abrir pop-up de edição
     function openEditPopup() {
         document.getElementById('edit-popup').classList.add('active');
     }
 
+    // Função para fechar pop-up de edição
     function closeEditPopup() {
         document.getElementById('edit-popup').classList.remove('active');
     }
 
-    // Funções para o pop-up de confirmação de exclusão
+    // Função para enviar o formulário de edição
+    function submitEditForm() {
+        let name = document.getElementById('edit-name').value;
+        let price = document.getElementById('edit-price').value.replace(',', '.');
+        let description = document.getElementById('edit-description').value;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', 'editar_produto.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert('Produto atualizado com sucesso!');
+                location.reload(); // Recarrega a página após a atualização
+            }
+        };
+        xhr.send('id_produto=<?php echo $id_produto; ?>&nome=' + encodeURIComponent(name) + '&preco=' + encodeURIComponent(price) + '&descricao=' + encodeURIComponent(description));
+    }
+
+    // Função para abrir pop-up de confirmação de exclusão
     function openConfirmPopup() {
         document.getElementById('confirm-popup').classList.add('active');
     }
 
+    // Função para fechar pop-up de confirmação
     function closeConfirmPopup() {
         document.getElementById('confirm-popup').classList.remove('active');
     }
 
+    // Função para confirmar exclusão e redirecionar
     function confirmDelete() {
         window.location.href = 'excluir_produto.php?id=<?php echo $id_produto; ?>';
     }

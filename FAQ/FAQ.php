@@ -10,8 +10,8 @@ if (isset($_SESSION['email_cliente']) && !empty($_SESSION['email_cliente'])) {
 }
 
 // Mensagem de sucesso
-if (isset($POST['status']) && $_POST['status'] === 'enviado') {
-    echo "<script>alert('Pergunta enviada com sucesso.');</script>";
+if (isset($_GET['status']) && $_GET['status'] === 'enviado') {
+    echo "<script>alert('Sua pergunta foi enviada com sucesso!');</script>";
 }
 ?>
 
@@ -212,15 +212,13 @@ if (isset($POST['status']) && $_POST['status'] === 'enviado') {
             <div class="contact-form">
                 <h2>Envie sua pergunta</h2>
                 <form id="faq-form" action="enviarpergunta.php" method="post">
-                    <label for="email">Seu E-mail:</label>
-                    <input type="email" id="email" name="email" required>
-
+                    <input type="hidden" id="email" name="email" value="<?php echo $email; ?>"> <!-- Email pela sessão -->
+                    
                     <label for="question">Sua Pergunta:</label>
                     <textarea id="question" name="question" rows="4" required></textarea>
 
                     <button type="submit">Enviar</button>
                 </form>
-                <div id="form-response"></div>
             </div>
         <?php endif; ?>
     </div>

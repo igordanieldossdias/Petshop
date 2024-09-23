@@ -1,5 +1,14 @@
+<?php
+
+if (isset($_GET['status']) && $_GET['status'] === 'enviado') {
+    echo "<script>alert('Seu agendamento foi feito com sucesso!');</script>";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +17,8 @@
     <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.css">
     <style>
         .back {
-            background-color: #dc3545; /* Vermelho para voltar */
+            background-color: #dc3545;
+            /* Vermelho para voltar */
             color: white;
             border: none;
             cursor: pointer;
@@ -24,7 +34,8 @@
         }
 
         .back:hover {
-            background-color: #c82333; /* Cor mais escura no hover */
+            background-color: #c82333;
+            /* Cor mais escura no hover */
         }
 
         .main-container {
@@ -32,7 +43,8 @@
             flex-wrap: wrap;
             justify-content: center;
             margin: 20px auto;
-            max-width: 1200px; /* Ajuste a largura máxima se necessário */
+            max-width: 1200px;
+            /* Ajuste a largura máxima se necessário */
         }
 
         .contact-form {
@@ -54,7 +66,9 @@
             font-weight: bold;
         }
 
-        .contact-form input, .contact-form select, .contact-form button {
+        .contact-form input,
+        .contact-form select,
+        .contact-form button {
             width: 100%;
             margin-bottom: 15px;
             padding: 10px;
@@ -76,10 +90,12 @@
         .consultation-card {
             background-color: #fff;
             border: 2px solid #e9ecef;
-            width: 500px; /* Ajuste o tamanho conforme necessário */
+            width: 500px;
+            /* Ajuste o tamanho conforme necessário */
             border-radius: 8px;
             padding: 15px;
-            margin: 10px; /* Espaço entre os cards */
+            margin: 10px;
+            /* Espaço entre os cards */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -101,13 +117,14 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <h1>PontoPet - Agende sua Consulta</h1>
     </header>
 
-    <button class="back" onclick="window.location.href='../principal/index.php'">Voltar para a Página Inicial</button>  
+    <button class="back" onclick="window.location.href='../principal/index.php'">Voltar para a Página Inicial</button>
 
     <div class="main-container">
 
@@ -151,44 +168,46 @@
             // Formulário de agendamento
             echo '
             <div class="contact-form">
-                <h2>Formulário de Agendamento</h2>
-                <form id="appointment-form" action="enviarconsulta.php" method="post">
-                    <label for="name">Seu Nome:</label>
-                    <input type="text" id="name" name="name" required>
-                    
-                    <label for="email">Seu E-mail:</label>
-                    <input type="email" id="email" name="email" required>
-                    
-                    <label for="phone">Seu Telefone:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                    
-                    <label for="consultation-type">Tipo de Consulta:</label>
-                    <select id="consultation-type" name="consultation_type" required>
-                        <option value="">Selecione</option>
-                        <option value="checkup">Check-up</option>
-                        <option value="vacination">Vacinação</option>
-                        <option value="emergency">Emergência</option>
-                        <option value="grooming">Tosa</option>
-                    </select>
-                    
-                    <label for="animal">Tipo de Animal:</label>
-                    <select id="animal" name="animal" required>
-                        <option value="">Selecione</option>
-                        <option value="Cachorro">Cachorro</option>
-                        <option value="Gato">Gato</option>
-                        <option value="Pássaros">Pássaros</option>
-                        <option value="Tartarugas">Tartarugas</option>
-                        <option value="Hamsters">Hamsters</option>
-                        <option value="Aquáticos">Aquáticos</option>
-                    </select>
-                    
-                    <label for="animal-name">Nome do Animal:</label>
-                    <input type="text" id="animal-name" name="animal_name" required>
-                    
-                    <button type="submit">Enviar</button>
-                </form>
-                <div id="form-response"></div>
-            </div>
+    <h2>Formulário de Agendamento</h2>
+    <form id="appointment-form" action="enviarconsulta.php" method="post">
+        <label for="name">Seu Nome:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Seu E-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Seu Telefone:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="consultation-type">Tipo de Consulta:</label>
+        <select id="consultation-type" name="consultation_type" required>
+            <option value="">Selecione</option>
+            <option value="checkup">Check-up</option>
+            <option value="vacination">Vacinação</option>
+            <option value="emergency">Emergência</option>
+            <option value="grooming">Tosa</option>
+        </select>
+
+        <label for="animal">Tipo de Animal:</label>
+        <select id="animal" name="animal" required>
+            <option value="">Selecione</option>
+            <option value="Cachorro">Cachorro</option>
+            <option value="Gato">Gato</option>
+            <option value="Pássaros">Pássaros</option>
+            <option value="Tartarugas">Tartarugas</option>
+            <option value="Hamsters">Hamsters</option>
+            <option value="Aquáticos">Aquáticos</option>
+        </select>
+
+        <label for="animal-name">Nome do Animal:</label>
+        <input type="text" id="animal-name" name="animal_name" required>
+
+        <label for="appointment-date">Data de Agendamento:</label>
+        <input type="datetime-local" id="appointment-date" name="appointment_date" required>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
             ';
         }
 
@@ -205,4 +224,5 @@
     </script>
 
 </body>
+
 </html>

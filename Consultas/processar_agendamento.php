@@ -8,13 +8,17 @@ if ($conn->connect_error) {
 }
 
 // Receber dados do formulário
-$nome_usuario = $_POST['nome_usuario'];
-$data_consulta = $_POST['data_consulta'];
-$tipo_consulta = $_POST['tipo_consulta'];
+$nome_usuario = $_POST['name'];
+$email_cliente = $_POST['email'];
+$telefone_cliente = $_POST['phone'];
+$tipo_consulta = $_POST['consultation_type'];
+$tipo_animal = $_POST['animal'];
+$nome_animal = $_POST['animal_name'];
+$data_agendamento = $_POST['appointment_date'];
 
-// Inserir dados na tabela agendamentos
-$sql = "INSERT INTO agendamentos (nome_usuario, data_consulta, tipo_consulta)
-        VALUES ('$nome_usuario', '$data_consulta', '$tipo_consulta')";
+// Inserir dados na tabela consultas
+$sql = "INSERT INTO consultas (nome_cliente, email_cliente, telefone_cliente, tipo_consulta, tipo_animal, nome_animal, data_agendamento)
+        VALUES ('$nome_usuario', '$email_cliente', '$telefone_cliente', '$tipo_consulta', '$tipo_animal', '$nome_animal', '$data_agendamento')";
 
 if ($conn->query($sql) === TRUE) {
     $message = "Novo agendamento criado com sucesso!";
