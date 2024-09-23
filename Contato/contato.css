@@ -1,0 +1,58 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+.navbar {
+    background-color: #9400d3;
+    padding: 10px 50px;
+}
+
+.navbar-list {
+    list-style-type: none;
+    display: flex;
+}
+
+.navbar-item {
+    margin-right: 70px;
+}
+
+.navbar-item:last-child {
+    margin-right: 0;
+}
+
+.navbar-item a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.navbar-item a:hover {
+    
+}
+
+.container {
+    background-image: url('fundosobrenos.png'); 
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    max-width: 800px;
+    text-align: justify;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+h1 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}

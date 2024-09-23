@@ -1,0 +1,68 @@
+body {
+    background-image: url('fundifaq.png');
+    background-size: cover;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.form {
+    margin-bottom: 20px;
+}
+
+.form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form input[type="text"] {
+    width: calc(100% - 100px);
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.form button {
+    width: auto; /* Alterado para auto para estender horizontalmente conforme o conteúdo */
+    padding: 12px; /* Aumenta o padding dos botões */
+    margin-left: 10px; 
+    background-color: #e9b526; 
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px; /* Deixa os botões mais redondinhos */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px; /* Tamanho da fonte */
+    white-space: nowrap; /* Evita que o texto quebre para uma nova linha */
+}
+
+.form button:hover {
+    background-color: #f0b330; 
+}
+
+.pergunta {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9; 
+    border-radius: 5px;
+}
+
+.pergunta button {
+    margin-left: 10px; 
+    background-color: #7e54ca; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    border-radius: 20px; /* Deixa os botões mais redondinhos */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px; /* Tamanho da fonte */
+    white-space: nowrap; /* Evita que o texto quebre para uma nova linha */
+}
+
+.pergunta button:hover {
+    background-color: #3c1a8a;
+}
+
