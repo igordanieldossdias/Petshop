@@ -38,25 +38,7 @@ body {
     border: 3px solid #D9A5F6; /* Borda roxa */
 }
 
-.img-box {
-        background-color: #D9A5F6; /* Cor de fundo para o lado da imagem */
-        width: 45%;
-        display: flex;
-        align-items: center;
-        justify-content: center; /* Centralizar a imagem verticalmente e horizontalmente */
-        padding: 20px; /* Ajuste o padding conforme necessário */
-        border-radius: 0 20px 20px 0;
-        overflow: hidden; /* Garante que nada da imagem ultrapasse o contêiner */
-        border-color: #9400D3;
-}
 
-.img-box img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0 20px 20px 0;
-    border-color: #9400D3;
-
-}
 
 .form-box h2 {
     font-size: 30px;

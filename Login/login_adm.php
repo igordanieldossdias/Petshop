@@ -11,8 +11,8 @@
     <div class="box">
         <div class="form-box">
             <h2>Login de administrador</h2>
-            <a href="login.html">Entrar como cliente</a> </p>
-            <form action="logar_adm.php" method="post"> <!-- Envia o formulário para login_process.php -->
+            <a href="login.html">Entrar como cliente</a>
+            <form id="form-login-adm" action="logar_adm.php" method="post">
                 <div class="input-group">
                     <label for="email">E-mail</label>
                     <input type="email" id="email" name="email" placeholder="Digite o seu email" required>
@@ -24,6 +24,11 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="confirmar-senha">Confirmar Senha</label>
+                    <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Confirme sua senha" required>
+                </div>
+
+                <div class="input-group">
                     <button type="submit">Entrar</button>
                 </div>
             </form>
@@ -32,5 +37,19 @@
             <img src="fundo_adm.png" alt="Imagem de Cadastro">
         </div>
     </div>
+
+    <script>
+        // Função para validar as senhas
+        document.getElementById("form-login-adm").addEventListener("submit", function(event) {
+            const senha = document.getElementById("senha").value;
+            const confirmarSenha = document.getElementById("confirmar-senha").value;
+
+            // Verifica se as senhas são iguais
+            if (senha !== confirmarSenha) {
+                alert("As senhas não coincidem. Por favor, confirme sua senha corretamente.");
+                event.preventDefault(); // Impede o envio do formulário
+            }
+        });
+    </script>
 </body>
 </html>
